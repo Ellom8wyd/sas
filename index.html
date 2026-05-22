@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hürriyet Gazetesi, 23 Temmuz 1908</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#241a0d;
+      --ink-soft:#3d2f1b;
+      --paper:#f1e4c8;
+      --paper-deep:#e7d5af;
+      --rule:#2b2012;
+      --accent:#6e1f17;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+
+    html,body{
+      background:#2a2620;
+      background-image:radial-gradient(circle at 30% 20%, #3a342b, #211d18 70%);
+      font-family:'Old Standard TT', Georgia, serif;
+      color:var(--ink);
+      -webkit-font-smoothing:antialiased;
+    }
+
+    .toolbar{
+      position:sticky;top:0;z-index:50;
+      display:flex;align-items:center;justify-content:center;gap:18px;
+      padding:14px 16px;
+      background:rgba(20,17,13,.92);
+      border-bottom:1px solid #4a4136;
+      color:#e8dcc2;font-family:'Old Standard TT',serif;
+    }
+    .toolbar span{font-size:13.5px;letter-spacing:.03em;max-width:640px;}
+    .toolbar b{color:#e9c98f;font-weight:700;}
+    .print-btn{
+      font-family:'Playfair Display',serif;font-weight:800;letter-spacing:.06em;
+      background:#e9c98f;color:#241a0d;border:none;padding:9px 22px;border-radius:2px;
+      cursor:pointer;font-size:14px;box-shadow:0 2px 0 #8a6a32;transition:transform .12s ease;white-space:nowrap;
+    }
+    .print-btn:hover{transform:translateY(-1px);}
+    .print-btn:active{transform:translateY(1px);box-shadow:0 1px 0 #8a6a32;}
+
+    .stage{padding:34px 16px 70px;display:flex;flex-direction:column;align-items:center;gap:34px;}
+
+    .page{
+      width:210mm;min-height:297mm;
+      background:var(--paper);
+      background-image:
+              radial-gradient(ellipse at 12% 8%, rgba(120,84,30,.10), transparent 38%),
+              radial-gradient(ellipse at 88% 30%, rgba(120,84,30,.10), transparent 34%),
+              radial-gradient(ellipse at 70% 92%, rgba(120,84,30,.12), transparent 40%),
+              radial-gradient(circle at 50% 50%, transparent 55%, rgba(60,40,12,.16) 100%);
+      color:var(--ink);
+      padding:13mm 12mm 11mm;
+      position:relative;
+      box-shadow:0 18px 50px rgba(0,0,0,.55);
+    }
+    .page::before{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
+      mix-blend-mode:multiply;opacity:.22;
+    }
+    .frame{border:3px double var(--rule);padding:6mm 6mm 5mm;position:relative;min-height:100%;}
+
+    .masthead{text-align:center;}
+    .nameplate{
+      font-family:'Playfair Display',serif;font-weight:900;
+      font-size:76px;line-height:.96;letter-spacing:.015em;margin:2px 0 3px;
+    }
+    .nameplate .swash{font-style:italic;font-weight:800;}
+    .founded{
+      font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+      color:var(--ink-soft);margin-bottom:3px;
+    }
+    .subtitle{font-style:italic;font-size:15px;color:var(--ink-soft);letter-spacing:.03em;}
+    .masthead-bar{
+      display:flex;justify-content:space-between;align-items:stretch;
+      border-top:2px solid var(--rule);border-bottom:2px solid var(--rule);margin-top:10px;
+    }
+    .mb-cell{flex:1;padding:5px 8px;font-size:10.5px;line-height:1.4;letter-spacing:.04em;text-transform:uppercase;}
+    .mb-cell.center{
+      flex:1.5;text-align:center;border-left:1px solid var(--rule);border-right:1px solid var(--rule);
+      font-weight:700;letter-spacing:.07em;
+    }
+    .mb-cell.right{text-align:right;}
+    .mb-cell b{display:block;font-size:12.5px;}
+
+    .headline-zone{border-bottom:3px double var(--rule);padding:9px 0 11px;margin-bottom:8px;text-align:center;}
+    .kicker{
+      font-family:'Old Standard TT',serif;text-transform:uppercase;letter-spacing:.36em;
+      font-size:11px;color:var(--accent);font-weight:700;margin-bottom:4px;
+    }
+    .headline{font-family:'Playfair Display',serif;font-weight:900;font-size:68px;line-height:.95;letter-spacing:-.01em;}
+    .deck{
+      font-family:'Playfair Display',serif;font-style:italic;font-weight:400;
+      font-size:16.5px;line-height:1.45;margin-top:8px;color:var(--ink-soft);
+      max-width:88%;margin-left:auto;margin-right:auto;
+    }
+
+    .columns{display:flex;align-items:stretch;}
+    .col{flex:1;padding:0 7px;}
+    .col.wide{flex:1.28;}
+    .col + .col{border-left:1px solid var(--rule);}
+
+    .section-head{
+      font-family:'Playfair Display',serif;font-weight:800;font-size:21px;line-height:1.08;
+      border-bottom:2px solid var(--rule);padding-bottom:3px;margin-bottom:7px;
+    }
+    .section-head.sm{font-size:17px;}
+    .dateline{font-weight:700;text-transform:uppercase;font-size:10.5px;letter-spacing:.09em;}
+    .byline{
+      font-style:italic;font-size:11px;color:var(--ink-soft);
+      border-bottom:1px solid var(--rule);padding-bottom:4px;margin-bottom:6px;
+    }
+    p.body{font-size:11.4px;line-height:1.52;text-align:justify;hyphens:auto;margin-bottom:6px;}
+    p.body + p.body{text-indent:1.1em;}
+    .dropcap::first-letter{
+      font-family:'Playfair Display',serif;font-weight:900;font-size:54px;line-height:.78;
+      float:left;padding:5px 7px 0 0;color:var(--accent);
+    }
+    .crosshead{
+      font-family:'Playfair Display',serif;font-weight:700;font-size:12.5px;text-align:center;
+      text-transform:uppercase;letter-spacing:.08em;margin:9px 0 5px;
+    }
+
+    .divider{display:flex;align-items:center;gap:10px;margin:10px 2px;}
+    .divider::before,.divider::after{content:"";flex:1;border-top:1px solid var(--rule);}
+    .divider i{width:6px;height:6px;background:var(--rule);transform:rotate(45deg);display:block;}
+
+    /* resim kutuları */
+    figure.cut{margin:8px 0 4px;text-align:center;}
+    figure.cut.lg{max-width:244px;margin-left:auto;margin-right:auto;}
+    .photo-slot{
+      width:100%;
+      border:2px solid var(--rule);
+      background-color:var(--paper-deep);
+      background-image:repeating-linear-gradient(45deg, transparent, transparent 9px, rgba(43,32,18,.10) 9px, rgba(43,32,18,.10) 11px);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:14px 10px;color:var(--ink-soft);
+    }
+    figure.cut .photo-slot{min-height:128px;}
+    figure.cut.lg .photo-slot{min-height:204px;}
+    .ps-mark{
+      font-family:'Playfair Display',serif;font-weight:800;
+      font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+      border:1px solid var(--rule);padding:3px 9px;margin-bottom:8px;
+    }
+    .ps-text{font-size:10.5px;font-style:italic;line-height:1.4;}
+    figcaption{
+      font-size:10px;line-height:1.35;font-style:italic;color:var(--ink-soft);
+      margin-top:4px;border-top:1px solid var(--rule);padding-top:4px;
+    }
+    figcaption b{
+      font-style:normal;font-weight:700;display:block;text-transform:uppercase;
+      letter-spacing:.05em;font-size:10.5px;color:var(--ink);
+    }
+
+    .ad{border:1px solid var(--rule);padding:6px 8px;margin-bottom:7px;text-align:center;}
+    .ad-top{
+      font-family:'Playfair Display',serif;font-weight:800;font-size:12.5px;
+      text-transform:uppercase;letter-spacing:.03em;
+      border-bottom:1px dotted var(--rule);padding-bottom:3px;margin-bottom:4px;
+    }
+    .ad p{font-size:10px;line-height:1.4;font-style:italic;}
+    .ad .place{font-style:normal;font-weight:700;letter-spacing:.04em;}
+
+    .colophon{
+      border-top:3px double var(--rule);margin-top:9px;padding-top:7px;text-align:center;
+      font-size:10px;line-height:1.5;color:var(--ink-soft);
+    }
+    .colophon .paper-name{
+      font-family:'Playfair Display',serif;font-weight:800;font-size:13px;
+      color:var(--ink);letter-spacing:.04em;
+    }
+    .editable{background:rgba(110,31,23,.10);border-bottom:1px dashed var(--accent);padding:0 4px;font-weight:700;}
+    .folio{
+      position:absolute;bottom:2mm;width:100%;left:0;text-align:center;
+      font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);
+    }
+    .page-tag{
+      text-align:center;font-family:'Playfair Display',serif;font-style:italic;
+      font-size:13px;color:var(--ink-soft);border-bottom:2px solid var(--rule);
+      padding-bottom:4px;margin-bottom:8px;
+    }
+
+    @media print{
+      html,body{background:#fff;}
+      .toolbar{display:none;}
+      .stage{padding:0;gap:0;}
+      .page{
+        box-shadow:none;margin:0;width:210mm;height:297mm;min-height:297mm;
+        page-break-after:always;break-after:page;
+        -webkit-print-color-adjust:exact;print-color-adjust:exact;
+      }
+      .page:last-child{page-break-after:auto;break-after:auto;}
+    }
+    @page{size:A4;margin:0;}
+
+    @media(max-width:780px){
+      .toolbar{flex-direction:column;gap:8px;}
+      .page{width:100%;padding:5mm 4mm;}
+      .nameplate{font-size:42px;}
+      .headline{font-size:38px;}
+    }
+  </style>
+</head>
+<body>
+
+
+
+<div class="stage">
+
+  <!-- ============================ SAYFA 1 ============================ -->
+  <div class="page">
+    <div class="frame">
+
+      <header class="masthead">
+        <h1 class="nameplate">Hürriyet <span class="swash">Gazetesi</span></h1>
+        <div class="founded">Kuruluş tarihi: 10 Temmuz 1324</div>
+        <div class="subtitle">Vatan ve Millet Gazetesi</div>
+        <div class="masthead-bar">
+          <div class="mb-cell">Numara<b>6190</b></div>
+          <div class="mb-cell center">10 Temmuz 1324<b>Perşembe, 23 Temmuz 1908</b></div>
+          <div class="mb-cell right">Fiyatı<b>15 Sikke</b></div>
+        </div>
+      </header>
+
+      <div class="headline-zone">
+        <div class="kicker">Önemli Haber</div>
+        <h2 class="headline">HÜRRİYET İLAN EDİLDİ</h2>
+        <p class="deck">Kanun-ı Esasi yeniden yürürlüğe girdi. Meclis-i Mebusan için seçimler başlıyor. İstanbul'dan Selanik'e kadar halk sokaklara döküldü.</p>
+      </div>
+
+      <div class="columns">
+
+        <!-- COL 1 -->
+        <div class="col">
+          <h3 class="section-head sm">Padişahın Kararı</h3>
+          <p class="body">Rumeli'deki şehirlerden gelen meşrutiyet istekleri ve ordudaki hareketlenme büyüyünce, padişah dün gece uzun bir görüşmenin ardından kararını verdi.</p>
+          <p class="body">Çıkarılan ferman ile 1876'da ilan edilen Kanun-ı Esasi yeniden yürürlüğe girdi. Meclis-i Mebusan için seçimlerin hemen başlayacağı duyuruldu.</p>
+
+          <div class="crosshead">Telgraf Başında</div>
+          <p class="body">Karar telgrafla şehir şehir duyuruldu. Postane önlerinde toplanan halk haberi sevinçle karşıladı. Dükkânlar kapandı, okullar tatil edildi. Akşam olunca şehirler ışıklarla donatıldı.</p>
+
+          <h3 class="section-head sm" style="margin-top:10px;">Gazeteler Artık Serbest</h3>
+          <p class="body">Yıllardır gazetelere uygulanan sansür dünden itibaren kaldırıldı. Yazarlar uzun bir aradan sonra ilk kez serbestçe yazabiliyor. Elinizdeki bu sayı da o özgür günlerin ilk ürünüdür.</p>
+        </div>
+
+        <!-- COL 2 -->
+        <div class="col wide">
+          <h3 class="section-head">Meşrutiyet İkinci Kez İlan Edildi</h3>
+          <p class="byline"><span class="dateline">İstanbul'dan,</span> başyazarımızdan</p>
+          <p class="body dropcap">Dün gece ülke için önemli bir karar alındı. Sultan II. Abdülhamid Han'ın fermanıyla, otuz yıldır kapalı duran Kanun-ı Esasi yeniden yürürlüğe girdi. Böylece halk ikinci kez meşrutiyet yönetimine kavuştu.</p>
+          <p class="body">Bundan sonra devlet yalnızca tek bir kişi tarafından değil, halkın seçeceği milletvekillerinden oluşan Meclis-i Mebusan ile birlikte yönetilecek. Seçim hazırlıklarına şimdiden başlandı.</p>
+
+          <!-- RESİM EKLEMEK İÇİN: aşağıdaki <div class="photo-slot">...</div> bölümünü silip yerine
+               <img src="abdulhamid.jpg" style="width:100%;border:2px solid #2b2012;"> yazınız. -->
+          <figure class="cut lg">
+            <img src="./abd.png" style="width:100%;border:2px solid #2b2012;">
+            <figcaption><b>Sultan II. Abdülhamid Han</b>Kanun-ı Esasi'yi yeniden ilan eden padişah.</figcaption>
+          </figure>
+
+          <div class="crosshead">Meclis Yeniden Açılıyor</div>
+          <p class="body">Resmi açıklamaya göre milletvekili seçimleri kısa sürede yapılacak ve Meclis-i Mebusan İstanbul'da toplanacak. Otuz yıl önce kapatılan meclis, bu kez halkın çabasıyla yeniden açılıyor.</p>
+        </div>
+
+        <!-- COL 3 -->
+        <div class="col">
+          <h3 class="section-head sm">Birinci Meşrutiyet Neden Yarım Kaldı</h3>
+          <p class="body">Bugünkü kararın değerini anlamak için 1876 yılını hatırlamak gerekir. O yıl Mithat Paşa ve arkadaşlarının çabasıyla ilk Kanun-ı Esasi ilan edilmiş, ülke Birinci Meşrutiyet'e kavuşmuştu.</p>
+          <p class="body">Ama 1877'de başlayan Osmanlı-Rus Savaşı bahane edilerek 1878'de Meclis-i Mebusan süresiz kapatıldı. Kanun-ı Esasi tamamen kaldırılmadı, fakat uygulanmadı. Otuz yıl boyunca kâğıt üzerinde kaldı.</p>
+          <p class="body">Bugün ilan edilen II. meşrutiyet, işte o yarım kalan işin tamamlanmasıdır.</p>
+
+          <div class="divider"><i></i></div>
+
+          <h3 class="section-head sm">Rumeli'de Hürriyet Hareketi</h3>
+          <p class="body">Hürriyetin ilan edilmesinin önünü Rumeli'deki subaylar açtı. Kolağası Resneli Niyazi Bey, yanına aldığı asker ve gönüllülerle Resne'de dağa çıktı ve Kanun-ı Esasi'nin yeniden ilan edilmesini istedi.</p>
+          <p class="body">Aynı günlerde Enver Paşa ve Eyüp Sabri Bey de benzer hareketlere katıldı. Geçen Haziran ayında Reval'de yapılan görüşmeden sonra Rumeli'nin geleceğiyle ilgili endişe artmıştı. Hareket de bu yüzden hızla büyüdü. Padişah, bu tutum karşısında istekleri kabul etmek zorunda kaldı.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ SAYFA 2 ============================ -->
+  <!-- ============================ SAYFA 2 ============================ -->
+  <div class="page" style="height: 297mm; display: flex; flex-direction: column;">
+    <div class="frame" style="flex: 1; display: flex; flex-direction: column;">
+
+      <header class="masthead" style="margin-bottom:6px;">
+        <div class="masthead-bar" style="border-top:2px solid var(--rule);">
+          <div class="mb-cell">Hürriyet Gazetesi</div>
+          <div class="mb-cell center" style="font-family:'Playfair Display',serif;font-weight:900;font-size:20px;letter-spacing:.04em;">İKİNCİ SAYFA</div>
+          <div class="mb-cell right">23 Temmuz 1908</div>
+        </div>
+      </header>
+      <div class="page-tag">Hürriyet günlerinden haberler</div>
+
+      <div class="columns">
+
+        <!-- COL 1 -->
+        <div class="col">
+          <h3 class="section-head sm">Sokaklarda Sevinç Var</h3>
+          <p class="body">Haber duyulur duyulmaz meydanlar doldu. Selanik, Manastır, İzmir ve İstanbul'da halk "Yaşasın Hürriyet" diye bağırarak yürüdü.</p>
+          <p class="body">Farklı din ve milletlerden insanların bir arada kutlama yaptığı, feslerini havaya attığı görüldü. Camilerde ve diğer ibadethanelerde dualar edildi. Şehirler gece geç saatlere kadar şenlik içindeydi.</p>
+
+          <h3 class="section-head sm" style="margin-top:8px;">Gazeteler Kapışıldı</h3>
+          <p class="byline">İstanbul'dan</p>
+          <p class="body">Gazete satıcılarının önünde uzun kuyruklar oluştu. Meşrutiyet haberini taşıyan sayılar kısa sürede tükendi. Bazı satıcılar yeni baskı için matbaaların önünde bekledi.</p>
+        </div>
+
+        <!-- COL 2 -->
+        <div class="col">
+          <h3 class="section-head">Hürriyet Hareketinin Önemli İsimleri</h3>
+
+          <!-- RESİM EKLEMEK İÇİN: her kutudaki <div class="photo-slot">...</div> bölümünü silip yerine
+               yazınız. -->
+          <div style="display:flex;gap:9px;">
+            <figure class="cut" style="flex:1;">
+              <img src="./mithatps.jpg" style="width:100%;border:2px solid #2b2012;">
+              <figcaption><b>Mithat Paşa</b>Birinci Meşrutiyet'i ve ilk Kanun-ı Esasi'yi hazırlayan devlet adamı.</figcaption>
+            </figure>
+            <figure class="cut" style="flex:1;">
+              <img src="./nvrps.jpg" style="width:100%;border:2px solid #2b2012;">
+              <figcaption><b>Resneli Niyazi Bey</b>Resne'de dağa çıkarak hareketi başlatan subay.</figcaption>
+            </figure>
+            <figure class="cut" style="flex:1;">
+              <img src="./nvrps.jpg" style="width:100%;border:2px solid #2b2012;">
+              <figcaption><b>Enver Paşa</b>Rumeli'deki hürriyet hareketinin genç subaylarından.</figcaption>
+            </figure>
+          </div>
+
+          <div class="divider"><i></i></div>
+
+          <h3 class="section-head sm">Bundan Sonra Ne Olacak?</h3>
+          <p class="byline">Gazetemizin görüşü</p>
+          <p class="body">Meşrutiyetin ilan edilmesi bir başlangıçtır. Önümüzdeki haftalarda milletvekili seçimleri yapılacak ve farklı görüşlerin yer aldığı bir meclis kurulacak. Bu, halk için yeni bir deneyim olacak.</p>
+          <p class="body">Ama hürriyeti korumak, onu ilan etmekten daha zordur. Ülkenin içeride ve dışarıda karşılaştığı sorunlar bitmiş değil. Bugünkü sevinç yerindedir. Yine de asıl iş bundan sonra başlıyor.</p>
+        </div>
+      </div>
+
+
+      <div class="folio">Hürriyet Gazetesi ▪ 23 Temmuz 1908</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
